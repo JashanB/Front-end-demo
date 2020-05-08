@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
 import './App.css';
+const FontAwesome = require('react-fontawesome');
+
 
 //email needs to be vaild
 //can only be submitted once
 //once submitted - delay 2 seconds then show Thank you 
 //second form is drop down menu 
-function App() {
+const App = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [signUpButton, setSignUpButton] = useState('Sign Up Now');
   const [interest, setInterest] = useState('');
+  const [listOpen, setListOpen] = useState(false);
+  const [interestHeaderTitle, setInterestHeaderTitle] = useState('Your interests');
 
-  function validateEmail(inputtedEmail) {
+  const validateEmail = (inputtedEmail) => {
     if (inputtedEmail.includes('.') && inputtedEmail.includes('@')) {
       return true;
     } else {
       return false;
     }
   };
-
-  function handleSignUp() {
+  const handleInterestSelect = (value) => {
+    setInterest(state => value);
+    setInterestHeaderTitle(state => value);
+    setListOpen(state => false);
+  };
+  const handleSignUp = () => {
     setSignUpButton(state => 'Submitting...');
     if (validateEmail(email)) {
       console.log('email:', email);
@@ -62,13 +70,24 @@ function App() {
               value={email}
             />
           </form>
-          <div className="dropdown">
+          <div className="drop-down-container">
+            <button className="drop-down button" onClick={() => listOpen ? setListOpen(state => false) : setListOpen(state => true)}>{interestHeaderTitle}<i className="fas fa-angle-up"></i></button>
+            {listOpen &&
+              <div className="dropdown">
+                <button value="Project Management" onClick={event => handleInterestSelect(event.target.value)}>Project Management</button>
+                <button value="Web-Development" onClick={event => handleInterestSelect(event.target.value)}>Web-Development</button>
+                <button value="Graphic Design" onClick={event => handleInterestSelect(event.target.value)}>Graphic Design</button>
+                <button value="Digital Marketing" onClick={event => handleInterestSelect(event.target.value)}>Digital Marketing</button>
+              </div>
+            }
+          </div>
+          {/* <div className="dropdown">
             <form onSubmit={event => event.preventDefault()}>
-              <fieldset>
-                <select id="set-interest" value="Your interests" onChange={event => {
+              <fieldset placeholder="Your interests">
+                <select id="set-interest" onChange={event => {
                   setInterest(event.target.value)
                 }
-                }>
+              }>
                   <option value="Project Management">Project Management</option>
                   <option value="Web-Development">Web-Development</option>
                   <option value="Graphic Design">Graphic Design</option>
@@ -76,7 +95,22 @@ function App() {
                 </select>
               </fieldset>
             </form>
-          </div>
+          </div> */}
+          {/* <div className="dd-wrapper">
+            <div className="dd-header" onClick={() => setListOpen(state => true)}>
+              <div className="dd-header-title">{interestHeaderTitle}</div>
+              {listOpen
+                ? <FontAwesome name="angle-up" size="2x" />
+                : <FontAwesome name="angle-down" size="2x" />
+              }
+            </div>
+            {listOpen && <ul className="dd-list">
+                <li value="Project Management" onClick={event => setInterest(event.target.value)}>Project Management</li>
+                <li value="Web-Development" onClick={event => setInterest(event.target.value)}>Web-Development</li>
+                <li value="Graphic Design" onClick={event => setInterest(event.target.value)}>Graphic Design</li>
+                <li value="Digital Marketing" onClick={event => setInterest(event.target.value)}>Digital Marketing</li>
+              </ul>}
+          </div> */}
         </div >
         <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
       </div >
