@@ -10,62 +10,68 @@ function App() {
   const [error, setError] = useState('');
   const [valid, setValid] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [signUpButton, setSignUpButton] = useState('Sign Up Now')
 
   function validateEmail(email) {
-
-  };
-
-  function handleSubmit () {
-    if (validateEmail(email)) {
-      setError('');
-
+    if (email.includes('.') && email.includes('@')) {
+      return true;
+    } else {
+      return false;
     }
   };
 
-  function isSubmitted () {
-    if (submitted) {
-      return (
-        <button className="submit-button">Submitting</button>
-      )
+  function handleSignUp () {
+    if (validateEmail(email)) {
+      setError(state => '');
+      setTimeout(function() {
+        setSubmitted(state => true);
+      }, 2000)
     } else {
-      return (
-        <button className="submit-button" onClick={handleSubmit}>Sign Up Now</button>
-      )
-    };
+      setError(state => 'Please enter a valid email address.');
+    }
   };
 
-  return (
-    <div className="App">
-      <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
-      <p>Prepare for your career with a Project Management, Web-Development, Graphic Design, or Digital Marketing Internship at Northern</p>
-      <div className="forms">
-        <section className="email-validation">{error}</section>
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name={search}
-            placeholder="Search here"
-            onChange={(event) => {
-              setEmail(event.target.value)
-              setError('');
-            }
-            }
-            value={search}
-          />
-        </form>
-        <div class="dropdown">
-          <button onclick={dropDown} className="dropbtn">Your Interests</button>
-          <div className="dropdown-content">
-            <button className="select-options" onClick={interest}>Project Management</button>
-            <button className="select-options" onClick={interest}>Web-Development</button>
-            <button className="select-options" onClick={interest}>Graphic Design</button>
-            <button className="select-options" onClick={interest}>Digital Marketing</button>
+  if (submitted) {
+    return (
+      <div className="App">
+        <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
+        <p>Prepare for your career with a Project Management, Web-Development, Graphic Design, or Digital Marketing Internship at Northern</p>
+        <div className="forms">
+          <section className="email-validation">{error}</section>
+          <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+            <input
+              type="text"
+              name={email}
+              placeholder="Search here"
+              onChange={(event) => {
+                setEmail(event.target.value)
+              }
+              }
+              value={email}
+            />
+          </form>
+          <div class="dropdown">
+            <button onclick={dropDown} className="dropbtn">Your Interests</button>
+            <div className="dropdown-content">
+              <button className="select-options" onClick={interest}>Project Management</button>
+              <button className="select-options" onClick={interest}>Web-Development</button>
+              <button className="select-options" onClick={interest}>Graphic Design</button>
+              <button className="select-options" onClick={interest}>Digital Marketing</button>
+            </div>
           </div>
         </div>
+        <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
       </div>
-      {isSubmitted()}
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="App">
+        <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
+        <h3>Thanks for your interest!</h3>
+        <p>We will review your application and contact you for additional information should your background and experience meet the requirements of one of our openings</p>
+      </div>
+    );
+  }
 }
 
 export default App;
