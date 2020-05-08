@@ -8,30 +8,42 @@ import './App.css';
 function App() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-  const [valid, setValid] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [signUpButton, setSignUpButton] = useState('Sign Up Now')
+  const [signUpButton, setSignUpButton] = useState('Sign Up Now');
+  const [interest, setInterest] = useState('');
 
-  function validateEmail(email) {
-    if (email.includes('.') && email.includes('@')) {
+  function validateEmail(inputtedEmail) {
+    if (inputtedEmail.includes('.') && inputtedEmail.includes('@')) {
       return true;
     } else {
       return false;
     }
   };
 
-  function handleSignUp () {
+  function handleSignUp() {
+    setSignUpButton(state => 'Submitting...');
     if (validateEmail(email)) {
-      setError(state => '');
-      setTimeout(function() {
+      console.log('email:', email);
+      console.log('interests:', interest);
+      setTimeout(function () {
         setSubmitted(state => true);
-      }, 2000)
+      }, 2000);
     } else {
-      setError(state => 'Please enter a valid email address.');
+      setTimeout(function () {
+        setError(state => 'Please enter a valid email address.');
+      }, 2000);
     }
   };
 
   if (submitted) {
+    return (
+      <div className="App">
+        <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
+        <h3>Thanks for your interest!</h3>
+        <p>We will review your application and contact you for additional information should your background and experience meet the requirements of one of our openings</p>
+      </div>
+    );
+  } else {
     return (
       <div className="App">
         <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
@@ -42,34 +54,32 @@ function App() {
             <input
               type="text"
               name={email}
-              placeholder="Search here"
-              onChange={(event) => {
+              placeholder="Your Email Address*"
+              onChange={event => {
                 setEmail(event.target.value)
               }
               }
               value={email}
             />
           </form>
-          <div class="dropdown">
-            <button onclick={dropDown} className="dropbtn">Your Interests</button>
-            <div className="dropdown-content">
-              <button className="select-options" onClick={interest}>Project Management</button>
-              <button className="select-options" onClick={interest}>Web-Development</button>
-              <button className="select-options" onClick={interest}>Graphic Design</button>
-              <button className="select-options" onClick={interest}>Digital Marketing</button>
-            </div>
+          <div className="dropdown">
+            <form onSubmit={event => event.preventDefault()}>
+              <fieldset>
+                <select id="set-interest" value="Your interests" onChange={event => {
+                  setInterest(event.target.value)
+                }
+                }>
+                  <option value="Project Management">Project Management</option>
+                  <option value="Web-Development">Web-Development</option>
+                  <option value="Graphic Design">Graphic Design</option>
+                  <option value="Digital Marketing">Digital Marketing</option>
+                </select>
+              </fieldset>
+            </form>
           </div>
-        </div>
+        </div >
         <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
-      </div>
-    );
-  } else {
-    return (
-      <div className="App">
-        <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
-        <h3>Thanks for your interest!</h3>
-        <p>We will review your application and contact you for additional information should your background and experience meet the requirements of one of our openings</p>
-      </div>
+      </div >
     );
   }
 }
