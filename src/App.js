@@ -6,24 +6,52 @@ import './App.css';
 //once submitted - delay 2 seconds then show Thank you 
 //second form is drop down menu 
 function App() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+  const [valid, setValid] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  function validateEmail(email) {
+
+  };
+
+  function handleSubmit () {
+    if (validateEmail(email)) {
+      setError('');
+
+    }
+  };
+
+  function isSubmitted () {
+    if (submitted) {
+      return (
+        <button className="submit-button">Submitting</button>
+      )
+    } else {
+      return (
+        <button className="submit-button" onClick={handleSubmit}>Sign Up Now</button>
+      )
+    };
+  };
+
   return (
     <div className="App">
       <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
       <p>Prepare for your career with a Project Management, Web-Development, Graphic Design, or Digital Marketing Internship at Northern</p>
       <div className="forms">
+        <section className="email-validation">{error}</section>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <input
             type="text"
             name={search}
             placeholder="Search here"
             onChange={(event) => {
-              setSearch(event.target.value)
+              setEmail(event.target.value)
               setError('');
             }
             }
             value={search}
           />
-          <section className="search-validation">{error}</section>
         </form>
         <div class="dropdown">
           <button onclick={dropDown} className="dropbtn">Your Interests</button>
@@ -35,7 +63,7 @@ function App() {
           </div>
         </div>
       </div>
-            <button>Sign Up Now</button>
+      {isSubmitted()}
     </div>
   );
 }
