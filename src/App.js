@@ -62,20 +62,22 @@ const App = () => {
           <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
           <div className="header-border"></div>
           <p className="paragraph">Prepare for your career with a Project Management, Web-Development, Graphic Design, or Digital Marketing Internship at Northern</p>
-          <div className="forms">
-            <section className="email-validation">{error}</section>
-            <form autoComplete="off" onSubmit={event => event.preventDefault()}>
-              <input
-                type="text"
-                name={email}
-                placeholder="Your Email Address*"
-                onChange={event => {
-                  setEmail(event.target.value)
-                }
-                }
-                value={email}
-              />
-            </form>
+          <div className="input-fields">
+            <div className="email">
+              <section className="email-validation">{error}</section>
+              <form autoComplete="off" className="email-form" onSubmit={event => event.preventDefault()}>
+                <input
+                  type="text"
+                  name={email}
+                  placeholder="Your Email Address*"
+                  onChange={event => {
+                    setEmail(event.target.value)
+                  }
+                  }
+                  value={email}
+                />
+              </form>
+            </div>
             <div className="drop-down-container">
               <button className="drop-down button" onClick={() => listOpen ? setListOpen(state => false) : setListOpen(state => true)}
               >{interestHeaderTitle}</button>
@@ -88,8 +90,10 @@ const App = () => {
                 </div>
               }
             </div>
-          </div >
-          <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
+          </div>
+          <div>
+            <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
+          </div>
         </div>
       </div >
     );

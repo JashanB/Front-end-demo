@@ -24,13 +24,41 @@
 }
 
 .header-border {
-  height: 0.5em;
+  height: 0.6em;
   background-color: #D02035;
-  width: 25%;
+  width: 28%;
 }
 
 .paragraph {
   font-family: Merriweather Regular;
   font-size: 20px;
   width: 90%;
+}
+
+.input-fields {
+  height: 40%;
+}
+
+.email {
+  display: inline-block;
+  font-family: Merriweather Italic;
+  font-size: 16px;
+}
+
+.email-form input {
+  height: 100%;
+  margin: auto;
+}
+
+.drop-down-container {
+  display: inline-block;
+}
+
+.drop-down-container button {
+  height: 100%;
+  display: block;
+}
+
+.drop-down {
+  display: block;
 }
