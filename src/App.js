@@ -62,23 +62,59 @@ const App = () => {
           <h1 className="header">INTERNSHIP SIGNUP FORM</h1>
           <div className="header-border"></div>
           <p className="paragraph">Prepare for your career with a Project Management, Web-Development, Graphic Design, or Digital Marketing Internship at Northern</p>
-          <div className="input-fields">
-            <div className="email">
-              <section className="email-validation">{error}</section>
-              <form autoComplete="off" className="email-form" onSubmit={event => event.preventDefault()}>
-                <input
-                  type="text"
-                  name={email}
-                  placeholder="Your Email Address*"
-                  onChange={event => {
-                    setEmail(event.target.value)
-                  }
-                  }
-                  value={email}
-                />
-              </form>
-            </div>
-            <div className="drop-down-container">
+          {/* <div className="input-fields"> */}
+          <div className="email">
+            <section className="email-validation">{error}</section>
+            <form autoComplete="off" className="email-form" onSubmit={event => event.preventDefault()}>
+              <input
+                type="text"
+                name={email}
+                placeholder="Your Email Address*"
+                onChange={event => {
+                  setEmail(event.target.value)
+                }
+                }
+                value={email}
+              />
+            </form>
+          </div>
+          <div class="dropdown">
+            <form onSubmit={event => event.preventDefault()}>
+              <select id="cars" name="cars">
+                <option value="India">India</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Bangladesh">Bangladesh</option>
+              </select>
+              <input type="submit">
+</form>
+
+              {/* <p class="selLabel">Select Country</p> */}
+              {/* <input type="hidden" name="cd-dropdown"> */}
+              {/* <ul class="dropdown-list">
+              <li data-value="1">
+                <div>
+                  <p>India</p>
+                </div>
+              </li>
+              <li data-value="2">
+                <div>
+                  <p>Sri Lanka</p>
+                </div>
+              </li>
+              <li data-value="3">
+                <div>
+                  <p>Nepal</p>
+                </div>
+              </li>
+              <li data-value="4">
+                <div>
+                  <p>Bangladesh</p>
+                </div>
+              </li>
+            </ul> */}
+          </div>
+            {/* <div className="drop-down-container">
               <button className="drop-down button" onClick={() => listOpen ? setListOpen(state => false) : setListOpen(state => true)}
               >{interestHeaderTitle}</button>
               {listOpen &&
@@ -89,15 +125,14 @@ const App = () => {
                   <button value="Digital Marketing" onClick={event => handleInterestSelect(event.target.value)}>Digital Marketing</button>
                 </div>
               }
+            </div> */}
+            <div>
+              <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
             </div>
           </div>
-          <div>
-            <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
-          </div>
         </div>
-      </div >
-    );
-  }
-}
-
-export default App;
+        );
+      }
+    }
+    
+    export default App;
