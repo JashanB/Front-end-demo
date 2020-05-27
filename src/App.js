@@ -13,8 +13,6 @@ const App = () => {
   const [submitted, setSubmitted] = useState(false);
   const [signUpButton, setSignUpButton] = useState('Sign Up Now');
   const [interest, setInterest] = useState('');
-  const [listOpen, setListOpen] = useState(false);
-  const [interestHeaderTitle, setInterestHeaderTitle] = useState('Your interests');
 
   const validateEmail = (inputtedEmail) => {
     if (inputtedEmail.includes('.') && inputtedEmail.includes('@')) {
@@ -23,11 +21,11 @@ const App = () => {
       return false;
     }
   };
-  const handleInterestSelect = (value) => {
-    setInterest(state => value);
-    setInterestHeaderTitle(state => value);
-    setListOpen(state => false);
-  };
+  // const handleInterestSelect = (value) => {
+  //   setInterest(state => value);
+  //   setInterestHeaderTitle(state => value);
+  //   setListOpen(state => false);
+  // };
   const handleSignUp = () => {
     setSignUpButton(state => 'Submitting...');
     if (validateEmail(email)) {
@@ -78,61 +76,24 @@ const App = () => {
               />
             </form>
           </div>
-          <div class="dropdown">
-            <form onSubmit={event => event.preventDefault()}>
-              <select id="cars" name="cars">
-                <option value="India">India</option>
-                <option value="Sri Lanka">Sri Lanka</option>
-                <option value="Nepal">Nepal</option>
-                <option value="Bangladesh">Bangladesh</option>
+          <div className="dropdown">
+            <form autoComplete="off" className="dropdown-form" onSubmit={event => event.preventDefault()}>
+              <select onChange={(event) => setInterest(event.target.value)} id="drop-down-select">
+                <option value="" disabled selected>Your Interests</option>
+                <option value="Project Management">Project Management</option>
+                <option value="Web-Development">Web-Development</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Digital Marketing">Digital Marketing</option>
               </select>
-              <input type="submit">
-</form>
-
-              {/* <p class="selLabel">Select Country</p> */}
-              {/* <input type="hidden" name="cd-dropdown"> */}
-              {/* <ul class="dropdown-list">
-              <li data-value="1">
-                <div>
-                  <p>India</p>
-                </div>
-              </li>
-              <li data-value="2">
-                <div>
-                  <p>Sri Lanka</p>
-                </div>
-              </li>
-              <li data-value="3">
-                <div>
-                  <p>Nepal</p>
-                </div>
-              </li>
-              <li data-value="4">
-                <div>
-                  <p>Bangladesh</p>
-                </div>
-              </li>
-            </ul> */}
+            </form>
           </div>
-            {/* <div className="drop-down-container">
-              <button className="drop-down button" onClick={() => listOpen ? setListOpen(state => false) : setListOpen(state => true)}
-              >{interestHeaderTitle}</button>
-              {listOpen &&
-                <div className="dropdown">
-                  <button value="Project Management" onClick={event => handleInterestSelect(event.target.value)}>Project Management</button>
-                  <button value="Web-Development" onClick={event => handleInterestSelect(event.target.value)}>Web-Development</button>
-                  <button value="Graphic Design" onClick={event => handleInterestSelect(event.target.value)}>Graphic Design</button>
-                  <button value="Digital Marketing" onClick={event => handleInterestSelect(event.target.value)}>Digital Marketing</button>
-                </div>
-              }
-            </div> */}
-            <div>
-              <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
-            </div>
+          <div>
+            <button className="submit-button" onClick={handleSignUp}>{signUpButton}</button>
           </div>
         </div>
-        );
-      }
-    }
-    
-    export default App;
+      </div>
+    );
+  }
+}
+
+export default App;
